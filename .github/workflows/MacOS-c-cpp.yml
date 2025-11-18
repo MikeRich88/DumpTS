@@ -13,6 +13,12 @@ on:
       - 'src/**'
       - 'build/common/**'
       - 'build/macos/**'
+  workflow_dispatch:
+    branches: [ master ]
+    paths:
+      - 'src/**'
+      - 'build/common/**'
+      - 'build/macos/**'
 
 jobs:
   build:
