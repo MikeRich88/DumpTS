@@ -240,7 +240,7 @@ inline long InterlockedIncrement(long volatile *pLong)
 	__asm__ __volatile__("movl    $1,%0\n\t"
 		"lock    xadd %0,(%1)\n\t"
 		"inc     %0\n\t"
-		: "=r" (__res), "=r" (pLong)
+		: "=a" (__res), "=r" (pLong)
 		: "1" (pLong));
 	return __res;
 #endif
@@ -272,7 +272,7 @@ inline long InterlockedDecrement(long volatile *pLong)
 	__asm__ __volatile__("movl    $0xffffffff,%0\n\t"
 		"lock    xadd %0,(%1)\n\t"
 		"dec     %0\n\t"
-		: "=r" (__res), "=r" (pLong)
+		: "=a" (__res), "=r" (pLong)
 		: "1" (pLong));
 	return __res;
 #endif
@@ -307,7 +307,7 @@ inline long InterlockedExchange(
 		"1:\n\t"
 		"lock    cmpxchgl %3,(%1)\n\t"
 		"jne 1b\n\t"
-		: "=r" (__res), "=c" (Target) :
+		: "=a" (__res), "=c" (Target) :
 		"1" (Target), "d" (Value));
 	return __res;
 #endif
@@ -348,7 +348,7 @@ inline long InterlockedExchangeAdd(
 	register int __res;
 	__asm__ __volatile__("movl    (%2),%0\n\t"
 		"lock    xadd %3,(%2)\n\t"
-		: "=r" (__res), "=c" (pLong)
+		: "=a" (__res), "=c" (pLong)
 		: "1" (pLong), "d" (Value));
 	return __res;
 #endif
